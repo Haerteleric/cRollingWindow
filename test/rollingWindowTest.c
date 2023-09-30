@@ -7,7 +7,7 @@
 /***********************************************************************************/
 
 
-static char s_buffer[6] ;
+static char s_buffer[32] ;
 static rollingWindow_t s_rollingWindow = 
 {
     .buffer = s_buffer,
@@ -26,14 +26,11 @@ int main(void)
         {
             rollingWindow_put(&s_rollingWindow, input);
             printf("writePos %i\n", s_rollingWindow.k0Pos);
-            printf("[%c][%c][%c][%c][%c][%c]\n",
-                *rollingWindow_getSampleKMinusN(&s_rollingWindow, 0),
-                *rollingWindow_getSampleKMinusN(&s_rollingWindow, 1),
-                *rollingWindow_getSampleKMinusN(&s_rollingWindow, 2),
-                *rollingWindow_getSampleKMinusN(&s_rollingWindow, 3),
-                *rollingWindow_getSampleKMinusN(&s_rollingWindow, 4),
-                *rollingWindow_getSampleKMinusN(&s_rollingWindow, 5)
-            );
+            for (size_t i = 0; i < s_rollingWindow.bufferSize; i++)
+            {
+                printf("[%c]",*rollingWindow_getSampleKMinusN(&s_rollingWindow, i));
+            }
+            printf("\n");
         }
         input = getchar();
     }
