@@ -8,9 +8,7 @@
  * 
  **/
 #define _ROLLING_WINDOW_TEMPLATE_BUFFER_
-#include <stdint.h>
 #include <stddef.h>
-#include <stdbool.h>
 
 #ifdef ROLLING_WINDOW_CONFIG_HEADER_INCLUDE
     #include ROLLING_WINDOW_CONFIG_HEADER_INCLUDE
