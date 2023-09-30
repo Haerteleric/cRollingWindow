@@ -7,7 +7,8 @@
  * Portable Rolling Window template implementation
  * 
  **/
-#define _ROLLING_WINDOW_TEMPLATE_BUFFER_
+#ifndef _ROLLING_WINDOW_TEMPLATE_
+#define _ROLLING_WINDOW_TEMPLATE_
 #include <stddef.h>
 
 #ifdef ROLLING_WINDOW_CONFIG_HEADER_INCLUDE
@@ -77,3 +78,7 @@ static const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWin
 
     return &(handle->buffer[(handle->k0Pos + handle->bufferSize) - n]);
 }
+
+#else
+#error "this header should only be included once"
+#endif //_ROLLING_WINDOW_TEMPLATE_
