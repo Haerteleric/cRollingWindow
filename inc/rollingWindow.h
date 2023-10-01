@@ -20,6 +20,7 @@ typedef ROLLING_WINDOW_DATA_TYPE rollingWindowDatatype_t;
 
 #ifndef _ROLLING_WINDOW_INSTANCE_STRUCT_DEFINED
 #define _ROLLING_WINDOW_INSTANCE_STRUCT_DEFINED
+
 typedef struct rollingWindowInstance_s
 {
     rollingWindowDatatype_t *buffer;
@@ -30,7 +31,8 @@ typedef struct rollingWindowInstance_s
     unsigned int availableValues;
 #endif
 }rollingWindow_t;
-#endif
+
+#endif //_ROLLING_WINDOW_INSTANCE_STRUCT_DEFINED
 
 #ifdef ROLLING_WINDOW_INLINE_IMPLEMENTATION
 inline
@@ -54,7 +56,7 @@ void rollingWindow_reset(rollingWindow_t * handle)
     handle->availableValues = 0;
 #endif
 }
-#endif
+#endif // NOT(ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION)
 
 
 
@@ -79,7 +81,7 @@ void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t value)
     }
 #endif
 }
-#endif
+#endif // NOT(ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION)
 
 
 
@@ -110,6 +112,6 @@ const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWindow_t *
 
     return &(handle->buffer[(handle->k0Pos + handle->bufferSize) - n]);
 }
-#endif
+#endif // NOT(ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION)
 
 
