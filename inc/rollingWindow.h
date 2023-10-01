@@ -33,7 +33,18 @@ typedef struct rollingWindow_s
 
 }rollingWindow_t;
 
-static void rollingWindow_reset(rollingWindow_t * handle)
+
+
+#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
+void rollingWindow_reset(rollingWindow_t * handle);
+#else 
+#ifdef ROLLING_WINDOW_INLINE_IMPLEMENTATION
+inline
+#endif 
+#ifdef ROLLING_WINDOW_STATIC_IMPLEMENTATION
+static
+#endif 
+void rollingWindow_reset(rollingWindow_t * handle)
 {
     handle->k0Pos=0;
 
@@ -46,8 +57,20 @@ static void rollingWindow_reset(rollingWindow_t * handle)
     handle->availableValues = 0;
 #endif
 }
+#endif
 
-static void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t value)
+
+
+#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
+void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t value);
+#else 
+#ifdef ROLLING_WINDOW_INLINE_IMPLEMENTATION
+inline
+#endif 
+#ifdef ROLLING_WINDOW_STATIC_IMPLEMENTATION
+static
+#endif 
+void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t value)
 {
     handle->k0Pos = ( handle->k0Pos + 1 ) % handle->bufferSize;
     handle->buffer[handle->k0Pos] = value;
@@ -59,8 +82,20 @@ static void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t 
     }
 #endif
 }
+#endif
 
-static const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWindow_t * handle, unsigned int n)
+
+
+#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION 
+const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWindow_t * handle, unsigned int n)
+#else 
+#ifdef ROLLING_WINDOW_INLINE_IMPLEMENTATION
+inline 
+#endif 
+#ifdef ROLLING_WINDOW_STATIC_IMPLEMENTATION
+static
+#endif 
+const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWindow_t * handle, unsigned int n)
 {
 #ifdef ROLLING_WINDOW_CHECK_VALUE_EXISTENCE
     if((handle->availableValues < handle->bufferSize) && (n >= handle->availableValues))
@@ -78,7 +113,12 @@ static const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWin
 
     return &(handle->buffer[(handle->k0Pos + handle->bufferSize) - n]);
 }
+#endif
+
+
 
 #else
+#ifndef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION 
 #error "this header should only be included once"
+#endif
 #endif //_ROLLING_WINDOW_TEMPLATE_
