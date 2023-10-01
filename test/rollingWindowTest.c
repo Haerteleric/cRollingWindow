@@ -3,7 +3,13 @@
 #include <time.h>
 /*****************************TEMPLATE INCLUDE**************************************/
 #define ROLLING_WINDOW_DATA_TYPE char
-#include "rollingWindow.h"
+#define ROLLING_WINDOW_STATIC_IMPLEMENTATION
+#define ROLLING_WINDOW_INLINE_IMPLEMENTATION
+//following just for testing
+#define ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
+#include "rollingWindow.h" //Prototype
+#undef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
+#include "rollingWindow.h" //Implementation
 /***********************************************************************************/
 
 

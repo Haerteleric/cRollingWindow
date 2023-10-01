@@ -7,10 +7,7 @@
  * Portable Rolling Window template implementation
  * 
  **/
-#ifndef _ROLLING_WINDOW_TEMPLATE_
-#define _ROLLING_WINDOW_TEMPLATE_
 #include <stddef.h>
-
 #ifdef ROLLING_WINDOW_CONFIG_HEADER_INCLUDE
     #include ROLLING_WINDOW_CONFIG_HEADER_INCLUDE
 #endif
@@ -21,7 +18,9 @@
 
 typedef ROLLING_WINDOW_DATA_TYPE rollingWindowDatatype_t;
 
-typedef struct rollingWindow_s
+#ifndef _ROLLING_WINDOW_INSTANCE_STRUCT_DEFINED
+#define _ROLLING_WINDOW_INSTANCE_STRUCT_DEFINED
+typedef struct rollingWindowInstance_s
 {
     rollingWindowDatatype_t *buffer;
     const unsigned int bufferSize;
@@ -30,14 +29,9 @@ typedef struct rollingWindow_s
 #ifdef ROLLING_WINDOW_CHECK_VALUE_EXISTENCE
     unsigned int availableValues;
 #endif
-
 }rollingWindow_t;
+#endif
 
-
-
-#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
-void rollingWindow_reset(rollingWindow_t * handle);
-#else 
 #ifdef ROLLING_WINDOW_INLINE_IMPLEMENTATION
 inline
 #endif 
@@ -45,6 +39,9 @@ inline
 static
 #endif 
 void rollingWindow_reset(rollingWindow_t * handle)
+#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
+;
+#else
 {
     handle->k0Pos=0;
 
@@ -61,9 +58,6 @@ void rollingWindow_reset(rollingWindow_t * handle)
 
 
 
-#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
-void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t value);
-#else 
 #ifdef ROLLING_WINDOW_INLINE_IMPLEMENTATION
 inline
 #endif 
@@ -71,6 +65,9 @@ inline
 static
 #endif 
 void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t value)
+#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
+;
+#else
 {
     handle->k0Pos = ( handle->k0Pos + 1 ) % handle->bufferSize;
     handle->buffer[handle->k0Pos] = value;
@@ -86,9 +83,6 @@ void rollingWindow_put(rollingWindow_t * handle, rollingWindowDatatype_t value)
 
 
 
-#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION 
-const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWindow_t * handle, unsigned int n)
-#else 
 #ifdef ROLLING_WINDOW_INLINE_IMPLEMENTATION
 inline 
 #endif 
@@ -96,6 +90,9 @@ inline
 static
 #endif 
 const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWindow_t * handle, unsigned int n)
+#ifdef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION 
+;
+#else
 {
 #ifdef ROLLING_WINDOW_CHECK_VALUE_EXISTENCE
     if((handle->availableValues < handle->bufferSize) && (n >= handle->availableValues))
@@ -116,9 +113,3 @@ const rollingWindowDatatype_t * rollingWindow_getSampleKMinusN(rollingWindow_t *
 #endif
 
 
-
-#else
-#ifndef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION 
-#error "this header should only be included once"
-#endif
-#endif //_ROLLING_WINDOW_TEMPLATE_
