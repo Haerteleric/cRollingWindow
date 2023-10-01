@@ -1,6 +1,5 @@
 /**
  * Author:    Haerteleric
- * Created:   11.07.23
  * 
  * (c) Copyright by Eric Haertel
  * 
