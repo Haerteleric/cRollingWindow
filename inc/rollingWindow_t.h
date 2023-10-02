@@ -31,6 +31,11 @@
     #include ROLLING_WINDOW_CONFIG_HEADER_INCLUDE
 #endif
 
+#ifndef _ROLLING_WINDOW_INCLUDED
+#define _ROLLING_WINDOW_INCLUDED
+#endif
+
+
 #ifndef ROLLING_WINDOW_DATA_TYPE
     #define ROLLING_WINDOW_DATA_TYPE float
 #endif

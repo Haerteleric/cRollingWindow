@@ -7,9 +7,9 @@
 #define ROLLING_WINDOW_INLINE_IMPLEMENTATION
 //following just for testing
 #define ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
-#include "rollingWindow.h" //Prototype
+#include "rollingWindow_t.h" //Prototype
 #undef ROLLING_WINDOW_ONLY_PROTOTYPE_DECLARATION
-#include "rollingWindow.h" //Implementation
+#include "rollingWindow_t.h" //Implementation
 /***********************************************************************************/
 
 
